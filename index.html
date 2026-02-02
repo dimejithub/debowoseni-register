@@ -2,334 +2,594 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1"/>
-  <title>Event Registration | debowoseni.com</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Event Registration | debowoseni</title>
+
   <style>
     :root{
+      /* Brand */
       --yellow:#FFD400;
-      --black:#0f0f10;
-      --line:rgba(255,255,255,.12);
-      --muted:rgba(255,255,255,.75);
-      --shadow: 0 18px 40px rgba(0,0,0,.35);
-      --radius:22px;
+      --yellow2:#FFB800;
+      --brown:#5a4a00;
+      --brown2:#3f3300;
+
+      /* Light UI */
+      --ink:#0f0f10;
+      --muted:#5f5f66;
+      --shadow: 0 18px 50px rgba(0,0,0,.18);
+      --radius: 26px;
     }
 
     *{box-sizing:border-box}
+    html,body{height:100%}
     body{
       margin:0;
-      font-family: Inter, Arial, sans-serif;
-      color:#fff;
-      min-height:100vh;
-      background: linear-gradient(180deg, #ffdf1a 0%, #ffc800 42%, #101012 100%);
+      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial, "Noto Sans", "Helvetica Neue", sans-serif;
+      color: var(--ink);
+      background: linear-gradient(180deg, #ffe65c 0%, #ffd21a 35%, #f6e17a 100%);
+      overflow-x:hidden;
     }
 
-    /* Honeycomb-ish pattern (CSS approximation) */
-    .pattern{
+    /* Optional background image support
+       Upload your background pattern as: assets/bg.png
+       (or bg.jpg / bg.webp) and this will pick it up.
+    */
+    .bg{
       position:fixed;
       inset:0;
       pointer-events:none;
-      opacity:.18;
       background-image:
-        radial-gradient(circle at 25px 15px, rgba(0,0,0,.16) 2px, transparent 3px),
-        radial-gradient(circle at 50px 45px, rgba(0,0,0,.14) 2px, transparent 3px);
-      background-size: 80px 70px;
+        url("assets/bg.png"),
+        radial-gradient(circle at 12px 12px, rgba(0,0,0,.08) 1px, transparent 1.6px);
+      background-size: cover, 22px 22px;
+      background-position: center, 0 0;
+      opacity:.22;
       mix-blend-mode:multiply;
     }
 
-    .topbar{
-      background: linear-gradient(180deg, rgba(0,0,0,.74), rgba(0,0,0,.52));
-      border-bottom:1px solid rgba(255,255,255,.08);
-      padding:18px 16px;
-      position:sticky;
-      top:0;
-      backdrop-filter: blur(8px);
-      z-index:3;
+    .wrap{
+      max-width: 1160px;
+      margin: 0 auto;
+      padding: 22px 16px 46px;
     }
 
-    .topbar-inner{
-      max-width:1060px;
-      margin:0 auto;
+    /* Top header strip */
+    .topbar{
+      height: 56px;
+      border-radius: 16px;
+      background: linear-gradient(180deg, rgba(0,0,0,.62), rgba(0,0,0,.38));
+      box-shadow: var(--shadow);
       display:flex;
       align-items:center;
-      justify-content:center;
+      justify-content:space-between;
+      padding: 0 18px;
+      position:sticky;
+      top:14px;
+      z-index:3;
+      backdrop-filter: blur(10px);
+      position:sticky;
+      top:14px;
+      z-index:3;
+      backdrop-filter: blur(10px);
+    }
+    .topbar .siteLeft{
+      display:flex;
+      align-items:center;
       gap:10px;
-      font-weight:900;
-      letter-spacing:.6px;
-      font-size:22px;
     }
-    .domain{color:#fff;}
-    .dot{color:var(--yellow); font-weight:900;}
-
-    .wrap{
-      max-width:1060px;
-      margin:0 auto;
-      padding:24px 16px 56px;
+    .topbar .siteLeft img{
+      width:26px;
+      height:26px;
+      object-fit:contain;
+      filter: brightness(1) saturate(100%);
     }
 
-    .hero{
+    .topbar .siteLeft{
+      font-weight: 700;
+      font-size: 22px;
+      letter-spacing: .5px;
+      color: #ffffff;
+    }
+    .topbar .pill{
+      display:inline-flex;
+      align-items:center;
+      gap:8px;
+      padding: 10px 12px;
+      border-radius: 999px;
+      border: 1px solid rgba(255,255,255,.22);
+      background: rgba(0,0,0,.22);
+      color: rgba(255,255,255,.92);
+      font-weight: 900;
+      font-size: 12px;
+      letter-spacing: .8px;
+      text-transform: uppercase;
+      box-shadow: 0 10px 24px rgba(0,0,0,.18);
+      white-space: nowrap;
+    }
+
+
+    .grid{
+      margin-top: 18px;
       display:grid;
       grid-template-columns: 1.15fr .85fr;
-      gap:18px;
+      gap: 18px;
       align-items:start;
     }
-    @media (max-width: 920px){
-      .hero{grid-template-columns:1fr; }
+    @media (max-width: 980px){
+      .grid{grid-template-columns:1fr;}
     }
 
-    .brand-left{
-      background: linear-gradient(180deg, rgba(0,0,0,.66), rgba(0,0,0,.48));
-      border:1px solid rgba(255,255,255,.10);
+    /* LEFT PANEL */
+    .panel{
       border-radius: var(--radius);
-      padding:22px;
+      background: linear-gradient(180deg, rgba(90,74,0,.92), rgba(63,51,0,.92));
       box-shadow: var(--shadow);
+      overflow:hidden;
+      position:relative;
+    }
+    .panel:before{
+      content:"";
+      position:absolute;
+      inset:0;
+      background: radial-gradient(circle at 30px 24px, rgba(255,255,255,.08) 1.5px, transparent 2px);
+      background-size: 26px 26px;
+      opacity:.35;
+      pointer-events:none;
     }
 
-    .badge{
-      width:56px;
-      height:56px;
-      border-radius:16px;
-      background: var(--yellow);
-      display:grid;
-      place-items:center;
-      color:#111;
-      font-weight:1000;
-      font-size:26px;
-      margin-bottom:14px;
+    .panelHead{
+      padding: 26px 24px 18px;
+      position:relative;
+      z-index:1;
+      color:#fff;
+    }
+
+    .brandRow{
+      display:flex;
+      gap:14px;
+      align-items:flex-start;
+    }
+
+    
+
+    h1{
+      margin: 0 0 28px;
+      font-size: 60px;
+      line-height: 1.05;
+      letter-spacing: -1px;
+      text-align: center;
+    }
+
+    h1 .accent{
+      color: var(--yellow);
+      text-shadow: 0 10px 28px rgba(255,212,0,.25);
+    }
+
+    /* Responsive title */
+    @media (max-width: 520px){
+      h1{font-size: 44px;}
+    }
+
+
+      color: var(--yellow);
+      text-shadow: 0 10px 28px rgba(255,212,0,.25);
     }
 
     h1{
-      margin:0;
-      font-size:46px;
-      line-height:1.05;
-      letter-spacing:.3px;
     }
-    @media (max-width: 520px){
-      h1{font-size:36px;}
+    
+
+    .sub{
+      text-align:center;
+      margin-left:auto;
+      margin-right:auto;
+
+      margin: 0;
+      color: rgba(255,255,255,.88);
+      font-size: 16px;
+      line-height: 1.4;
+      max-width: 90ch;
     }
 
-    .lead{
-      margin:12px 0 0;
-      color:rgba(255,255,255,.82);
-      font-size:15px;
-      line-height:1.55;
-      max-width:46ch;
+    .hr{
+      height:1px;
+      background: rgba(255,255,255,.18);
+      margin: 18px 0;
     }
 
     .hosted{
-      margin-top:18px;
-      padding-top:14px;
-      border-top:1px solid rgba(255,255,255,.10);
-      color:rgba(255,255,255,.90);
-      font-size:16px;
+      color: rgba(255,255,255,.92);
+      line-height: 1.35;
     }
-    .hosted b{color:var(--yellow);}
+    .hosted b{color: var(--yellow);}
 
-    .image-card{
-      background: rgba(0,0,0,.55);
-      border:1px solid rgba(255,255,255,.10);
-      border-radius: var(--radius);
-      padding:14px;
-      box-shadow: var(--shadow);
+    .lteTitle{
+      font-size: 24px;
+      font-weight: 1000;
+      letter-spacing: .2px;
+      margin-bottom: 6px;
+      color: #ffffff;
     }
-
-    .convener-frame{
-      border-radius: 22px;
-      border:4px solid rgba(255,212,0,.9);
-      overflow:hidden;
-      background:#0d0d0e;
-      aspect-ratio: 4 / 3;
-    }
-    .convener-frame img{
-      width:100%;
-      height:100%;
-      object-fit:cover;
-      object-position:center; /* centered image */
-      display:block;
+    .hostLine{
+      font-size: 20px;
+      font-weight: 850;
+      color: rgba(255,255,255,.92);
+      margin-bottom: 10px;
     }
 
-    /* Form Card */
-    .form-card{
-      margin-top:18px;
-      background: linear-gradient(180deg, rgba(255,255,255,.88), rgba(245,240,235,.92));
-      color:#131313;
-      border-radius: 28px;
-      padding:22px;
-      box-shadow: var(--shadow);
-      border:1px solid rgba(0,0,0,.10);
+    .lteBlurb{
+      margin: 10px 0 10px;
+      display:flex;
+      flex-wrap:wrap;
+      gap: 8px;
+      align-items:center;
+    }
+    .lteQ{
+      font-weight: 1000;
+      color: var(--yellow);
+      margin-right: 4px;
+    }
+    .lteTag{
+      font-weight: 850;
+      color: rgba(255,255,255,.92);
     }
 
-    .form-grid{
-      display:grid;
-      grid-template-columns: 1fr;
-      gap:14px;
-      margin-top:8px;
+    .programCopy{
+      text-align:center;
+      margin-left:auto;
+      margin-right:auto;
+
+      margin: 0 0 22px;
+      color: rgba(255,255,255,.88);
+      font-size: 16px;
+      line-height: 1.6;
+      max-width: 72ch;
+    }
+
+    .programList{
+      margin: 0;
+      padding-left: 18px;
+      color: rgba(255,255,255,.88);
+      font-size: 15px;
+      line-height: 1.55;
+    }
+    .programList li{ margin: 6px 0; }
+
+    /* FORM CARD (light) */
+    .formCard{
+      background: radial-gradient(1100px 420px at 40% 0%, rgba(255,255,255,.75), rgba(243,240,234,.92));
+      border-radius: 36px;
+      margin: 18px 24px 26px;
+      padding: 22px;
+      position:relative;
+      z-index:1;
+      box-shadow: 0 18px 40px rgba(0,0,0,.18);
+    }
+    .formDots{
+      position:absolute;
+      inset:0;
+      border-radius: 36px;
+      background: radial-gradient(circle at 12px 12px, rgba(0,0,0,.06) 1px, transparent 1.6px);
+      background-size: 24px 24px;
+      opacity:.22;
+      pointer-events:none;
     }
 
     label{
       display:block;
-      font-weight:700;
-      font-size:14px;
-      margin-bottom:7px;
-      color:#1a1a1a;
+      font-weight: 900;
+      font-size: 16px;
+      color: #121316;
+      margin: 12px 0 8px;
     }
-    label .req{color:#d52020;}
+    .req{color:#c61b1b;}
 
     input, select, textarea{
       width:100%;
-      padding:14px 14px;
-      border-radius: 12px;
-      border:1px solid rgba(0,0,0,.18);
-      background: rgba(255,255,255,.86);
+      padding: 16px 16px;
+      border-radius: 16px;
+      border: 1px solid rgba(0,0,0,.18);
+      background: rgba(255,255,255,.92);
+      color:#111;
+      font-size: 16px;
       outline:none;
-      font-size:14px;
+      box-shadow: 0 8px 22px rgba(0,0,0,.06);
     }
     input:focus, select:focus, textarea:focus{
-      border-color: rgba(255,196,0,.95);
-      box-shadow: 0 0 0 4px rgba(255,212,0,.22);
+      border-color: rgba(255,184,0,.85);
+      box-shadow: 0 0 0 6px rgba(255,212,0,.22);
     }
-
-    textarea{min-height:110px; resize:vertical;}
+    textarea{min-height: 130px; resize: vertical;}
 
     .two{
       display:grid;
-      grid-template-columns:1fr 1fr;
-      gap:14px;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
     }
-    @media (max-width: 720px){
+    @media (max-width: 760px){
       .two{grid-template-columns:1fr;}
     }
 
-    .submit{
-      margin-top:12px;
+    .gdpr{
+      margin-top: 14px;
+      padding: 12px 12px;
+      border-radius: 16px;
+      background: rgba(255,255,255,.55);
+      border: 1px solid rgba(0,0,0,.10);
+    }
+    .gdprLabel{
+      display:flex;
+      gap: 10px;
+      align-items:flex-start;
+      font-weight: 850;
+      font-size: 14px;
+      color: #111;
+      margin: 0;
+    }
+    .gdprLabel input{
+      width: 18px;
+      height: 18px;
+      margin-top: 2px;
+      box-shadow:none;
+    }
+    .gdprNote{
+      margin-top: 8px;
+      font-size: 13px;
+      color: rgba(0,0,0,.68);
+      font-weight: 700;
+    }
+
+    .ctaRow{
       display:flex;
       justify-content:center;
+      margin-top: 18px;
+      position:relative;
+      z-index:1;
     }
 
-    button{
-      min-width: 240px;
-      padding:14px 18px;
-      border:none;
-      border-radius: 12px;
-      background: linear-gradient(180deg, #1c1c1f, #0f0f10);
+    .btn{
+      min-width: 320px;
+      padding: 16px 18px;
+      border-radius: 16px;
+      border: 0;
+      background: linear-gradient(180deg, #1c1c1f, #0b0b0d);
       color: var(--yellow);
-      font-weight:900;
-      font-size:16px;
+      font-weight: 1000;
+      font-size: 18px;
+      letter-spacing: .3px;
       cursor:pointer;
-      box-shadow: 0 10px 24px rgba(0,0,0,.25);
+      box-shadow: 0 18px 36px rgba(0,0,0,.25);
     }
-    button:disabled{opacity:.6; cursor:not-allowed;}
+    .btn:disabled{opacity:.65; cursor:not-allowed;}
 
     .msg{
-      margin-top:12px;
+      margin-top: 14px;
       text-align:center;
-      font-size:14px;
-      font-weight:700;
+      font-weight: 900;
+      font-size: 15px;
+      position:relative;
+      z-index:1;
     }
     .ok{color:#0a7b34;}
     .err{color:#b00020;}
 
+    /* RIGHT PANEL (convener frame) */
+    .side{
+      border-radius: var(--radius);
+      background: rgba(90,74,0,.35);
+      box-shadow: var(--shadow);
+      padding: 18px;
+      display: grid;
+      gap: 14px;
+    }
+
+    .frame{
+      border-radius: 26px;
+      background: rgba(0,0,0,.84);
+      padding: 10px;
+      position:relative;
+      box-shadow: 0 18px 40px rgba(0,0,0,.22);
+    }
+
+    .frameInner{
+      border-radius: 22px;
+      border: 4px solid rgba(255,212,0,.95);
+      overflow:hidden;
+      aspect-ratio: 16/10;
+      background: #0b0b0d;
+    }
+
+    .frameInner img{
+      width:100%;
+      height:100%;
+      object-fit: cover;
+      object-position: center;
+      display:block;
+    }
+
+    .frameLabel{
+      position:absolute;
+      top: 10px;
+      left: 14px;
+      font-weight: 900;
+      color: #fff;
+      font-size: 16px;
+      text-shadow: 0 6px 16px rgba(0,0,0,.45);
+    }
+
+    .posterCard{
+      border-radius: 22px;
+      background: rgba(255,255,255,.75);
+      border: 1px solid rgba(0,0,0,.12);
+      overflow:hidden;
+      box-shadow: 0 14px 30px rgba(0,0,0,.12);
+      position: relative;
+    }
+    .posterCard img{
+      width: 100%;
+      display:block;
+      object-fit: cover;
+    }
+    .posterLabel{
+      position:absolute;
+      top: 10px;
+      left: 10px;
+      padding: 8px 10px;
+      border-radius: 999px;
+      background: rgba(0,0,0,.65);
+      color: #fff;
+      font-weight: 900;
+      font-size: 12px;
+      letter-spacing: .6px;
+      text-transform: uppercase;
+    }
+
+    .posterWrap{
+      margin-top: 14px;
+      border-radius: 22px;
+      overflow: hidden;
+      border: 2px solid rgba(255,212,0,.35);
+      box-shadow: 0 16px 36px rgba(0,0,0,.18);
+      background: rgba(0,0,0,.08);
+    }
+    .posterWrap img{
+      width: 100%;
+      display:block;
+      object-fit: cover;
+    }
+
     footer{
-      margin-top:28px;
+      margin-top: 18px;
       text-align:center;
-      color:rgba(255,255,255,.7);
-      font-size:13px;
-      padding-bottom:20px;
+      color: rgba(0,0,0,.65);
+      font-size: 14px;
+      font-weight: 800;
     }
 
     .hp{display:none;}
   </style>
 </head>
-<body>
-  <div class="pattern"></div>
 
-  <div class="topbar">
-    <div class="topbar-inner">
-      <span class="domain">debowoseni</span><span class="dot">.com</span>
-    </div>
-  </div>
+<body>
+  <div class="bg"></div>
 
   <div class="wrap">
-    <div class="hero">
-      <div class="brand-left">
-        <div class="badge">db</div>
-        <h1>Event Registration</h1>
-        <p class="lead">Please fill out the form below to register for the upcoming event.</p>
+    <div class="topbar">
+      <span class="siteLeft"><img src="assets/logo.png" alt="logo"/>debowoseni</span>
+      <span class="pill">Event Registration Form</span>
+    </div>
 
-        <div class="hosted">
-          Hosted by <b>Debo’ Owoseni</b><br/>
-          Life Transformation Enquiry
+    <div class="grid">
+      <!-- LEFT -->
+      <section class="panel">
+        <div class="panelHead">
+          <div class="brandRow">
+            <div>
+              <h1>Life Transformation<br/>Enquiry™<span class="accent"> Masterclass</span></h1>
+
+              <p class="programCopy">
+              In this masterclass, you’ll step back from the noise and map where you are, what’s shaping you, and what needs to shift.
+              Expect guided reflection, practical frameworks, and clear next steps for your purpose, priorities, and direction.
+            </p>
+
+              <div class="hr"></div>
+
+              <p class="sub">Complete this short form to reserve your seat for the upcoming masterclass.</p>
+            </div>
+          </div>
+
+          
         </div>
 
-        <div class="form-card">
-          <form id="regForm">
+        <div class="formCard">
+          <div class="formDots"></div>
+          <form id="regForm" style="position:relative; z-index:1;">
             <div class="hp">
               <label>Leave this empty</label>
               <input type="text" id="website" autocomplete="off"/>
             </div>
 
-            <div class="form-grid">
+            <label>Full Name <span class="req">*</span></label>
+            <input id="fullname" type="text" placeholder="Enter your full name" required />
+
+            <label>Email <span class="req">*</span></label>
+            <input id="email" type="email" placeholder="Enter your email address" required />
+
+            <div class="two">
               <div>
-                <label>Full Name <span class="req">*</span></label>
-                <input id="fullname" type="text" placeholder="Enter your full name" required />
+                <label>Phone Number</label>
+                <input id="phone" type="tel" placeholder="e.g., +44 7xxx xxx xxx" />
               </div>
-
               <div>
-                <label>Email <span class="req">*</span></label>
-                <input id="email" type="email" placeholder="Enter your email address" required />
+                <label>Location</label>
+                <select id="location">
+                  <option value="">Select one</option>
+                  <option>Leicester</option>
+                  <option>London</option>
+                  <option>Birmingham</option>
+                  <option>Manchester</option>
+                  <option>Outside UK</option>
+                  <option>Online</option>
+                  <option>Other</option>
+                </select>
               </div>
-
-              <div class="two">
-                <div>
-                  <label>Phone Number</label>
-                  <input id="phone" type="tel" placeholder="e.g., +44 7xxx xxx xxx" />
-                </div>
-
-                <div>
-                  <label>Location</label>
-                  <select id="location">
-                    <option value="">Select one</option>
-                    <option>Leicester</option>
-                    <option>London</option>
-                    <option>Birmingham</option>
-                    <option>Manchester</option>
-                    <option>Outside UK</option>
-                    <option>Online</option>
-                    <option>Other</option>
-                  </select>
-                </div>
-              </div>
-
-              <div>
-                <label>What are your expectations?</label>
-                <textarea id="expectations" placeholder="Write your message here..."></textarea>
-              </div>
-
-              <div class="submit">
-                <button id="btn" type="submit">Submit Registration</button>
-              </div>
-
-              <div id="msg" class="msg"></div>
             </div>
+
+            <label>What are your expectations?</label>
+            <textarea id="expectations" placeholder="Write your message here..."></textarea>
+
+            <div class="gdpr">
+              <label class="gdprLabel">
+                <input id="gdpr" type="checkbox" required />
+                <span>I agree to be contacted about the <b>Life Transformation Enquiry™ Masterclass</b> and consent to my details being processed for registration and event updates.</span>
+              </label>
+              <div class="gdprNote">You can unsubscribe at any time. We do not sell your data.</div>
+            </div>
+
+            <div class="ctaRow">
+              <button class="btn" id="btn" type="submit">Submit Registration</button>
+            </div>
+
+            <div id="msg" class="msg"></div>
           </form>
         </div>
-      </div>
+      </section>
 
-      <div class="image-card">
-        <div class="convener-frame">
-          <img src="assets/convener.jpg" alt="Convener" />
+      <!-- RIGHT -->
+      <aside class="side">
+        <div class="frame">
+          <div class="frameLabel">Convener</div>
+          <div class="frameInner">
+            <img src="assets/convener-new.jpg" alt="Convener" />
+          </div>
         </div>
-      </div>
+
+        <!-- Event Details moved under the image -->
+        <div style="margin-top:14px; padding:14px 14px; border-radius:18px; background: rgba(255,255,255,.75); border:1px solid rgba(0,0,0,.12);">
+          <h3 style="margin:0 0 10px; font-size:18px; font-weight:1000; color:#111;">Event Details</h3>
+          <div style="font-weight:400; color:#111; line-height:1.5;">
+            <div><b>Host:</b> Debo’ Owoseni</div>
+            
+            <div><b>Date:</b> Saturday 7 March 2026</div>
+            <div><b>Time:</b> 12:00 PM</div>
+            <div><b>Venue:</b> Phoenix Cinema, Leicester LE1 1TG</div>
+          </div>
+        </div>
+
+        <!-- Event Poster -->
+        
+      </aside>
     </div>
 
     <footer>
-      debowoseni.com • Life Transformation Enquiry<br/>
-      © 2026 Debo’ Owoseni — Empowering Life Transformation
+      Life Transformation Enquiry™ Masterclass<br/>
+      © 2026 Debo’ Owoseni | All rights reserved
     </footer>
   </div>
 
   <script>
-    // ✅ Your live Apps Script endpoint
-    const ENDPOINT_URL = "https://script.google.com/macros/s/AKfycbxNh9TIQ9WBgtq6nv-Rc8BrZYXUzMy8dAL4ZxaPfwuMTheqgl9RxqIWrGk3WusBzemm/exec";
+    const ENDPOINT_URL =
+      "https://script.google.com/macros/s/AKfycbxNh9TIQ9WBgtq6nv-Rc8BrZYXUzMy8dAL4ZxaPfwuMTheqgl9RxqIWrGk3WusBzemm/exec";
 
     const form = document.getElementById("regForm");
     const btn  = document.getElementById("btn");
@@ -347,6 +607,14 @@
         return;
       }
 
+      // GDPR required (native required should handle it, but keep a friendly message)
+      const gdpr = document.getElementById("gdpr");
+      if (!gdpr.checked) {
+        msg.textContent = "❌ Please tick the consent checkbox to continue.";
+        msg.classList.add("err");
+        return;
+      }
+
       btn.disabled = true;
       btn.textContent = "Submitting...";
 
@@ -356,6 +624,7 @@
         phone: document.getElementById("phone").value.trim(),
         location: document.getElementById("location").value.trim(),
         expectations: document.getElementById("expectations").value.trim(),
+        consent: true,
         source: location.hostname
       };
 
