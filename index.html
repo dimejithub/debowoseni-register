@@ -7,268 +7,328 @@
   <style>
     :root{
       --yellow:#FFD400;
-      --dark:#0f0f10;
-      --muted:#b9b9c2;
-      --line:#24242a;
-      --card:#141416;
-      --radius:16px;
+      --black:#0f0f10;
+      --line:rgba(255,255,255,.12);
+      --muted:rgba(255,255,255,.75);
+      --shadow: 0 18px 40px rgba(0,0,0,.35);
+      --radius:22px;
     }
 
+    *{box-sizing:border-box}
     body{
       margin:0;
-      font-family: Arial, sans-serif;
+      font-family: Inter, Arial, sans-serif;
       color:#fff;
-      padding:28px 16px 50px;
-      background:
-        radial-gradient(1100px 700px at 20% 0%, #1b1b1f 0%, #0b0b0c 55%, #070708 100%);
+      min-height:100vh;
+      background: linear-gradient(180deg, #ffdf1a 0%, #ffc800 42%, #101012 100%);
     }
 
-    .brandbar{
-      max-width:980px;
-      margin:0 auto 14px;
-      display:flex;
-      align-items:center;
-      justify-content:space-between;
-      gap:12px;
+    /* Honeycomb-ish pattern (CSS approximation) */
+    .pattern{
+      position:fixed;
+      inset:0;
+      pointer-events:none;
+      opacity:.18;
+      background-image:
+        radial-gradient(circle at 25px 15px, rgba(0,0,0,.16) 2px, transparent 3px),
+        radial-gradient(circle at 50px 45px, rgba(0,0,0,.14) 2px, transparent 3px);
+      background-size: 80px 70px;
+      mix-blend-mode:multiply;
     }
 
-    .logo{
+    .topbar{
+      background: linear-gradient(180deg, rgba(0,0,0,.74), rgba(0,0,0,.52));
+      border-bottom:1px solid rgba(255,255,255,.08);
+      padding:18px 16px;
+      position:sticky;
+      top:0;
+      backdrop-filter: blur(8px);
+      z-index:3;
+    }
+
+    .topbar-inner{
+      max-width:1060px;
+      margin:0 auto;
       display:flex;
       align-items:center;
+      justify-content:center;
       gap:10px;
-      font-weight:800;
-      letter-spacing:.4px;
-    }
-
-    .logo-badge{
-      width:42px;height:42px;
-      border-radius:12px;
-      background:var(--yellow);
-      color:var(--dark);
-      display:grid;
-      place-items:center;
       font-weight:900;
+      letter-spacing:.6px;
+      font-size:22px;
     }
-
-    .pill{
-      border:1px solid var(--line);
-      padding:10px 12px;
-      border-radius:999px;
-      color:var(--muted);
-      background: rgba(255,255,255,.03);
-      font-size:13px;
-    }
+    .domain{color:#fff;}
+    .dot{color:var(--yellow); font-weight:900;}
 
     .wrap{
-      max-width:980px;
+      max-width:1060px;
       margin:0 auto;
+      padding:24px 16px 56px;
+    }
+
+    .hero{
       display:grid;
+      grid-template-columns: 1.15fr .85fr;
       gap:18px;
-      grid-template-columns: 1.1fr .9fr;
+      align-items:start;
     }
-    @media (max-width: 900px){ .wrap{grid-template-columns:1fr;} }
+    @media (max-width: 920px){
+      .hero{grid-template-columns:1fr; }
+    }
 
-    .panel{
-      border:1px solid var(--line);
+    .brand-left{
+      background: linear-gradient(180deg, rgba(0,0,0,.66), rgba(0,0,0,.48));
+      border:1px solid rgba(255,255,255,.10);
       border-radius: var(--radius);
-      overflow:hidden;
-      background: rgba(255,255,255,.04);
+      padding:22px;
+      box-shadow: var(--shadow);
     }
 
-    .hero{padding:18px 18px 0;}
-
-    .kicker{
-      color:var(--yellow);
-      font-weight:700;
-      letter-spacing:.6px;
-      font-size:13px;
-    }
-
-    .titlebox{
-      background:#101012;
-      border:1px solid var(--line);
-      border-radius:18px;
-      padding:18px;
-      margin-top:14px;
-    }
-
-    h1{margin:10px 0 0; font-size:34px; letter-spacing:1px;}
-    .sub{margin:10px 0 0; color:var(--muted); font-size:14px; line-height:1.5;}
-
-    .meta{
-      display:flex;
-      flex-wrap:wrap;
-      gap:10px;
-      margin-top:14px;
-      padding-bottom:18px;
-    }
-    .chip{
-      background: rgba(255,255,255,.03);
-      border:1px solid var(--line);
-      border-radius:999px;
-      padding:10px 12px;
-      font-size:13px;
-      color:#e9e9ee;
-    }
-    .chip b{color:var(--yellow);}
-
-    .form{
-      padding:18px;
-      background: rgba(0,0,0,.20);
-      border-top:1px solid var(--line);
-    }
-
-    label{display:block; margin-top:12px; font-size:13px; color:#e9e9ee;}
-    input, textarea{
-      width:100%;
-      padding:12px;
-      margin-top:6px;
-      border-radius:12px;
-      border:1px solid var(--line);
-      background:#0e0e10;
-      color:#fff;
-      font-size:14px;
-      outline:none;
-    }
-    textarea{min-height:96px; resize:vertical;}
-
-    .row{
-      display:grid;
-      grid-template-columns:1fr 1fr;
-      gap:12px;
-    }
-    @media (max-width:560px){ .row{grid-template-columns:1fr;} }
-
-    button{
-      width:100%;
-      margin-top:16px;
-      padding:13px 14px;
-      border:0;
-      border-radius:12px;
+    .badge{
+      width:56px;
+      height:56px;
+      border-radius:16px;
       background: var(--yellow);
-      color: var(--dark);
-      font-weight:900;
+      display:grid;
+      place-items:center;
+      color:#111;
+      font-weight:1000;
+      font-size:26px;
+      margin-bottom:14px;
+    }
+
+    h1{
+      margin:0;
+      font-size:46px;
+      line-height:1.05;
+      letter-spacing:.3px;
+    }
+    @media (max-width: 520px){
+      h1{font-size:36px;}
+    }
+
+    .lead{
+      margin:12px 0 0;
+      color:rgba(255,255,255,.82);
       font-size:15px;
-      cursor:pointer;
+      line-height:1.55;
+      max-width:46ch;
     }
-    button:disabled{opacity:.65; cursor:not-allowed;}
 
-    .msg{margin-top:12px; font-size:14px;}
-    .ok{color:#57d17c;}
-    .err{color:#ff6b6b;}
+    .hosted{
+      margin-top:18px;
+      padding-top:14px;
+      border-top:1px solid rgba(255,255,255,.10);
+      color:rgba(255,255,255,.90);
+      font-size:16px;
+    }
+    .hosted b{color:var(--yellow);}
 
-    .hp{display:none;}
+    .image-card{
+      background: rgba(0,0,0,.55);
+      border:1px solid rgba(255,255,255,.10);
+      border-radius: var(--radius);
+      padding:14px;
+      box-shadow: var(--shadow);
+    }
 
-    /* Right column: image with centered subject */
-    .side{padding:18px;}
-    .photo{
-      width:100%;
-      aspect-ratio: 4/3;
-      border-radius: 14px;
-      border:1px solid var(--line);
+    .convener-frame{
+      border-radius: 22px;
+      border:4px solid rgba(255,212,0,.9);
       overflow:hidden;
-      background:#0e0e10;
+      background:#0d0d0e;
+      aspect-ratio: 4 / 3;
     }
-    .photo img{
+    .convener-frame img{
       width:100%;
       height:100%;
       object-fit:cover;
-      object-position:center; /* <-- centers the image in the frame */
+      object-position:center; /* centered image */
       display:block;
     }
 
-    .note{
-      margin-top:14px;
-      padding:12px;
-      border-radius:14px;
-      border:1px dashed rgba(255,212,0,.5);
-      background: rgba(255,212,0,.08);
-      color:#f2f2f2;
-      font-size:13px;
-      line-height:1.5;
+    /* Form Card */
+    .form-card{
+      margin-top:18px;
+      background: linear-gradient(180deg, rgba(255,255,255,.88), rgba(245,240,235,.92));
+      color:#131313;
+      border-radius: 28px;
+      padding:22px;
+      box-shadow: var(--shadow);
+      border:1px solid rgba(0,0,0,.10);
     }
+
+    .form-grid{
+      display:grid;
+      grid-template-columns: 1fr;
+      gap:14px;
+      margin-top:8px;
+    }
+
+    label{
+      display:block;
+      font-weight:700;
+      font-size:14px;
+      margin-bottom:7px;
+      color:#1a1a1a;
+    }
+    label .req{color:#d52020;}
+
+    input, select, textarea{
+      width:100%;
+      padding:14px 14px;
+      border-radius: 12px;
+      border:1px solid rgba(0,0,0,.18);
+      background: rgba(255,255,255,.86);
+      outline:none;
+      font-size:14px;
+    }
+    input:focus, select:focus, textarea:focus{
+      border-color: rgba(255,196,0,.95);
+      box-shadow: 0 0 0 4px rgba(255,212,0,.22);
+    }
+
+    textarea{min-height:110px; resize:vertical;}
+
+    .two{
+      display:grid;
+      grid-template-columns:1fr 1fr;
+      gap:14px;
+    }
+    @media (max-width: 720px){
+      .two{grid-template-columns:1fr;}
+    }
+
+    .submit{
+      margin-top:12px;
+      display:flex;
+      justify-content:center;
+    }
+
+    button{
+      min-width: 240px;
+      padding:14px 18px;
+      border:none;
+      border-radius: 12px;
+      background: linear-gradient(180deg, #1c1c1f, #0f0f10);
+      color: var(--yellow);
+      font-weight:900;
+      font-size:16px;
+      cursor:pointer;
+      box-shadow: 0 10px 24px rgba(0,0,0,.25);
+    }
+    button:disabled{opacity:.6; cursor:not-allowed;}
+
+    .msg{
+      margin-top:12px;
+      text-align:center;
+      font-size:14px;
+      font-weight:700;
+    }
+    .ok{color:#0a7b34;}
+    .err{color:#b00020;}
+
+    footer{
+      margin-top:28px;
+      text-align:center;
+      color:rgba(255,255,255,.7);
+      font-size:13px;
+      padding-bottom:20px;
+    }
+
+    .hp{display:none;}
   </style>
 </head>
 <body>
+  <div class="pattern"></div>
 
-  <div class="brandbar">
-    <div class="logo">
-      <div class="logo-badge">db</div>
-      <div>debowoseni.com</div>
+  <div class="topbar">
+    <div class="topbar-inner">
+      <span class="domain">debowoseni</span><span class="dot">.com</span>
     </div>
-    <div class="pill">Event Registration</div>
   </div>
 
   <div class="wrap">
-    <div class="panel">
-      <div class="hero">
-        <div class="kicker">Life Transformation Enquiry™ Masterclass</div>
+    <div class="hero">
+      <div class="brand-left">
+        <div class="badge">db</div>
+        <h1>Event Registration</h1>
+        <p class="lead">Please fill out the form below to register for the upcoming event.</p>
 
-        <div class="titlebox">
-          <h1>WHERE AM I REALLY HEADED?</h1>
-          <div class="sub">Busy. Productive? Maybe. Yet something feels off. Register to reserve your seat.</div>
+        <div class="hosted">
+          Hosted by <b>Debo’ Owoseni</b><br/>
+          Life Transformation Enquiry
+        </div>
 
-          <div class="meta">
-            <div class="chip"><b>Date:</b> Saturday 7 March 2026</div>
-            <div class="chip"><b>Time:</b> 12:00PM</div>
-            <div class="chip"><b>Venue:</b> Phoenix Cinema, Leicester LE1 1TG</div>
-          </div>
+        <div class="form-card">
+          <form id="regForm">
+            <div class="hp">
+              <label>Leave this empty</label>
+              <input type="text" id="website" autocomplete="off"/>
+            </div>
+
+            <div class="form-grid">
+              <div>
+                <label>Full Name <span class="req">*</span></label>
+                <input id="fullname" type="text" placeholder="Enter your full name" required />
+              </div>
+
+              <div>
+                <label>Email <span class="req">*</span></label>
+                <input id="email" type="email" placeholder="Enter your email address" required />
+              </div>
+
+              <div class="two">
+                <div>
+                  <label>Phone Number</label>
+                  <input id="phone" type="tel" placeholder="e.g., +44 7xxx xxx xxx" />
+                </div>
+
+                <div>
+                  <label>Location</label>
+                  <select id="location">
+                    <option value="">Select one</option>
+                    <option>Leicester</option>
+                    <option>London</option>
+                    <option>Birmingham</option>
+                    <option>Manchester</option>
+                    <option>Outside UK</option>
+                    <option>Online</option>
+                    <option>Other</option>
+                  </select>
+                </div>
+              </div>
+
+              <div>
+                <label>What are your expectations?</label>
+                <textarea id="expectations" placeholder="Write your message here..."></textarea>
+              </div>
+
+              <div class="submit">
+                <button id="btn" type="submit">Submit Registration</button>
+              </div>
+
+              <div id="msg" class="msg"></div>
+            </div>
+          </form>
         </div>
       </div>
 
-      <div class="form">
-        <form id="regForm">
-          <div class="hp">
-            <label>Leave this empty</label>
-            <input type="text" id="website" autocomplete="off"/>
-          </div>
-
-          <div class="row">
-            <div>
-              <label>Full Name *</label>
-              <input type="text" id="fullname" required />
-            </div>
-            <div>
-              <label>Email *</label>
-              <input type="email" id="email" required />
-            </div>
-          </div>
-
-          <div class="row">
-            <div>
-              <label>Phone Number</label>
-              <input type="tel" id="phone" />
-            </div>
-            <div>
-              <label>Location</label>
-              <input type="text" id="location" placeholder="e.g., Leicester, London, Online" />
-            </div>
-          </div>
-
-          <label>What are your expectations?</label>
-          <textarea id="expectations" placeholder="Tell us what you’re hoping for..."></textarea>
-
-          <button id="btn" type="submit">Submit Registration</button>
-          <div class="msg" id="msg"></div>
-        </form>
-      </div>
-    </div>
-
-    <div class="panel">
-      <div class="side">
-        <div class="photo">
+      <div class="image-card">
+        <div class="convener-frame">
           <img src="assets/convener.jpg" alt="Convener" />
         </div>
-
-        <div class="note">
-          After you register, you’ll receive a confirmation email addressed to you by name.
-          The event team also receives an instant notification at <b>debo@dodigital.uk</b>.
-        </div>
       </div>
     </div>
+
+    <footer>
+      debowoseni.com • Life Transformation Enquiry<br/>
+      © 2026 Debo’ Owoseni — Empowering Life Transformation
+    </footer>
   </div>
 
   <script>
+    // ✅ Your live Apps Script endpoint
     const ENDPOINT_URL = "https://script.google.com/macros/s/AKfycbxNh9TIQ9WBgtq6nv-Rc8BrZYXUzMy8dAL4ZxaPfwuMTheqgl9RxqIWrGk3WusBzemm/exec";
 
     const form = document.getElementById("regForm");
