@@ -1,253 +1,325 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <meta name="theme-color" content="#F7D400" />
-  <title>Life Transformation Enquiry™ Masterclass — Registration</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Event Registration | debowoseni</title>
 
   <style>
     :root{
-      --yellow: #F7D400;
-      --yellow-2: #FFD84A;
-      --ink: #0f1012;
-      --panel: rgba(66,53,0,.72);
-      --panel-2: rgba(62,50,0,.62);
-      --card: rgba(255,255,255,.78);
-      --card-2: rgba(255,255,255,.64);
-      --stroke: rgba(255,255,255,.18);
-      --stroke-dark: rgba(0,0,0,.10);
-      --shadow: 0 18px 45px rgba(0,0,0,.18);
-      --shadow-soft: 0 12px 28px rgba(0,0,0,.10);
+      /* Brand */
+      --yellow:#FFD400;
+      --yellow2:#FFB800;
+      --brown:#5a4a00;
+      --brown2:#3f3300;
+
+      /* Light UI */
+      --ink:#0f0f10;
+      --muted:#5f5f66;
+      --shadow: 0 18px 50px rgba(0,0,0,.18);
       --radius: 26px;
-      --radius2: 18px;
-      --font: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji","Segoe UI Emoji";
     }
 
     *{box-sizing:border-box}
     html,body{height:100%}
     body{
       margin:0;
-      font-family: var(--font);
-      color:#fff;
-      background: radial-gradient(1200px 800px at 50% 0%, rgba(255,255,255,.22), transparent 60%),
-                  linear-gradient(180deg, rgba(255,212,0,.95), rgba(255,199,0,.85));
+      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial, "Noto Sans", "Helvetica Neue", sans-serif;
+      color: var(--ink);
+      background: linear-gradient(180deg, #ffe65c 0%, #ffd21a 35%, #f6e17a 100%);
       overflow-x:hidden;
     }
 
-    /* Background image layer */
-    body::before{
-      content:"";
+    /* Optional background image support
+       Upload your background pattern as: assets/bg.png
+       (or bg.jpg / bg.webp) and this will pick it up.
+    */
+    .bg{
       position:fixed;
       inset:0;
-      background-image: url("assets/bg.png");
-      background-size: cover;
-      background-position: center;
-      opacity:.95;
       pointer-events:none;
-      z-index:-2;
-    }
-
-    /* Soft vignette for legibility */
-    body::after{
-      content:"";
-      position:fixed;
-      inset:0;
-      background: radial-gradient(900px 700px at 50% 30%, transparent 0%, rgba(0,0,0,.18) 70%, rgba(0,0,0,.25) 100%);
-      pointer-events:none;
-      z-index:-1;
+      background-image:
+        url("bg.png"),
+        radial-gradient(circle at 12px 12px, rgba(0,0,0,.08) 1px, transparent 1.6px);
+      background-size: cover, 22px 22px;
+      background-position: center, 0 0;
+      opacity:1;
+      mix-blend-mode:multiply;
     }
 
     .wrap{
-      max-width: 1180px;
+      max-width: 1160px;
       margin: 0 auto;
-      padding: 18px 18px 40px;
+      padding: 22px 16px 46px;
     }
 
-    /* Topbar */
+    /* Top header strip */
     .topbar{
-      border-radius: 18px;
-      background: linear-gradient(180deg, rgba(0,0,0,.55), rgba(0,0,0,.28));
-      border: 1px solid rgba(255,255,255,.14);
-      box-shadow: var(--shadow-soft);
+      height: 56px;
+      border-radius: 16px;
+      background: linear-gradient(180deg, rgba(0,0,0,.62), rgba(0,0,0,.38));
+      box-shadow: var(--shadow);
       display:flex;
       align-items:center;
       justify-content:space-between;
-      padding: 12px 16px;
-      gap: 12px;
-      position: sticky;
-      top: 12px;
-      z-index: 10;
+      padding: 0 18px;
+      position:sticky;
+      top:14px;
+      z-index:3;
+      backdrop-filter: blur(10px);
+      position:sticky;
+      top:14px;
+      z-index:3;
       backdrop-filter: blur(10px);
     }
-    .brand{
+    .topbar .siteLeft{
       display:flex;
       align-items:center;
-      gap: 10px;
-      font-size: 18px;
-      font-weight: 450; /* lighter */
-      letter-spacing: .2px;
-      color:#fff;
-      white-space: nowrap;
+      gap:10px;
     }
-    .brand img{
-      width: 34px;
-      height: 34px;
-      object-fit: contain;
-      /* force white */
+    .topbar .siteLeft img{
+      width:32px;
+      height:32px;
+      object-fit:contain;
       filter: brightness(0) invert(1);
     }
 
-    .pill{
+    .topbar .siteLeft{
+      font-weight: 450;
+      font-size: 18px;
+      letter-spacing: .5px;
+      color: #ffffff;
+    }
+    .topbar .pill{
       display:inline-flex;
       align-items:center;
-      padding: 9px 12px;
+      gap:8px;
+      padding: 10px 12px;
       border-radius: 999px;
-      background: rgba(255,255,255,.10);
       border: 1px solid rgba(255,255,255,.22);
+      background: rgba(0,0,0,.22);
       color: rgba(255,255,255,.92);
-      font-weight: 800;
+      font-weight: 900;
       font-size: 12px;
-      letter-spacing: .75px;
+      letter-spacing: .8px;
       text-transform: uppercase;
-      white-space: nowrap;
+      box-shadow: 0 10px 24px rgba(0,0,0,.18);
+      
     }
 
-    /* Grid layout */
+
     .grid{
-      margin-top: 16px;
+      margin-top: 18px;
       display:grid;
       grid-template-columns: 1.15fr .85fr;
       gap: 18px;
       align-items:start;
     }
+    @media (max-width: 980px){
+      .grid{grid-template-columns:1fr;}
+      .topbar{position: sticky; top: 10px; height: auto; padding: 12px 14px;}
+      .topbar .pill{padding: 8px 10px; font-size: 11px; letter-spacing: .6px;}
+    }
 
-    /* Left panel */
+    /* LEFT PANEL */
     .panel{
       border-radius: var(--radius);
-      background: var(--panel);
-      border: 1px solid rgba(255,255,255,.12);
+      background: linear-gradient(180deg, rgba(90,74,0,.92), rgba(63,51,0,.92));
       box-shadow: var(--shadow);
       overflow:hidden;
+      position:relative;
+    }
+    .panel:before{
+      content:"";
+      position:absolute;
+      inset:0;
+      background: radial-gradient(circle at 30px 24px, rgba(255,255,255,.08) 1.5px, transparent 2px);
+      background-size: 26px 26px;
+      opacity:.35;
+      pointer-events:none;
     }
 
     .panelHead{
-      padding: 26px 24px 14px;
+      padding: 26px 24px 18px;
+      position:relative;
+      z-index:1;
+      color:#fff;
     }
 
-    /* Title: 2 lines on desktop, but NOT broken/crazy on mobile */
+    .brandRow{
+      display:flex;
+      gap:14px;
+      align-items:flex-start;
+    }
+
+    
+
     h1{
-      margin: 0 0 18px;
-      font-size: 58px;
-      line-height: 1.02;
+      margin: 0 0 28px;
+      font-size: 54px;
+      line-height: 1.05;
       letter-spacing: -1px;
       text-align: center;
+      white-space: nowrap;
     }
+
     h1 .accent{
       color: var(--yellow);
-      text-shadow: 0 10px 28px rgba(255,212,0,.22);
+      text-shadow: 0 10px 28px rgba(255,212,0,.25);
+    }
+
+    /* Responsive title */
+    @media (max-width: 520px){
+      .wrap{padding: 16px 12px 32px;}
+      .topbar{border-radius: 14px;}
+      .topbar .siteLeft{gap: 8px;}
+      .topbar .siteLeft img{width: 30px; height: 30px;}
+      .topbar .siteLeft{font-size: 16px;}
+
+      h1{font-size: 42px; line-height: 1.05;}
+
+      .panelHead{padding: 20px 16px 14px;}
+      .formCard{margin: 14px 12px 16px; padding: 16px; border-radius: 26px;}
+
+      label{font-size: 15px; margin: 10px 0 7px;}
+      input, select, textarea{padding: 14px 14px; font-size: 15px; border-radius: 14px;}
+      textarea{min-height: 120px;}
+
+      .two{gap: 12px;}
+
+      .gdpr{padding: 10px;}
+      .gdprLabel{
+      display:flex;
+      gap: 10px;
+      align-items:flex-start;
+      font-weight: 600;
+      font-size: 13.5px;
+      color: #222;
+      margin: 0;
+      line-height: 1.5;
+      color: rgba(255,255,255,.92);
+      margin-bottom: 10px;
+    }
+
+    .lteBlurb{
+      margin: 10px 0 10px;
+      display:flex;
+      flex-wrap:wrap;
+      gap: 8px;
+      align-items:center;
+    }
+    .lteQ{
+      font-weight: 1000;
+      color: var(--yellow);
+      margin-right: 4px;
+    }
+    .lteTag{
+      font-weight: 850;
+      color: rgba(255,255,255,.92);
     }
 
     .programCopy{
-      margin: 0 auto 14px;
-      max-width: 70ch;
       text-align:center;
-      color: rgba(255,255,255,.90);
+      margin-left:auto;
+      margin-right:auto;
+
+      margin: 0 0 22px;
+      color: rgba(255,255,255,.88);
       font-size: 16px;
-      line-height: 1.65;
-      font-weight: 500;
+      line-height: 1.6;
+      max-width: 72ch;
     }
 
-    .hr{
-      height: 1px;
-      background: rgba(255,255,255,.22);
-      margin: 16px auto;
-      max-width: 680px;
-    }
-
-    .sub{
-      margin: 0 auto 10px;
-      max-width: 70ch;
-      text-align:center;
+    .programList{
+      margin: 0;
+      padding-left: 18px;
       color: rgba(255,255,255,.88);
       font-size: 15px;
-      line-height: 1.45;
-      font-weight: 500;
+      line-height: 1.55;
     }
+    .programList li{ margin: 6px 0; }
 
+    /* FORM CARD (light) */
     .formCard{
-      margin: 18px 18px 20px;
-      background: var(--card);
-      border: 1px solid rgba(0,0,0,.08);
-      border-radius: 30px;
-      padding: 18px;
-      box-shadow: 0 18px 40px rgba(0,0,0,.14);
-      color: #111;
+      background: radial-gradient(1100px 420px at 40% 0%, rgba(255,255,255,.75), rgba(243,240,234,.92));
+      border-radius: 36px;
+      margin: 18px 24px 26px;
+      padding: 22px;
+      position:relative;
+      z-index:1;
+      box-shadow: 0 18px 40px rgba(0,0,0,.18);
+    }
+    .formDots{
+      position:absolute;
+      inset:0;
+      border-radius: 36px;
+      background: radial-gradient(circle at 12px 12px, rgba(0,0,0,.06) 1px, transparent 1.6px);
+      background-size: 24px 24px;
+      opacity:.22;
+      pointer-events:none;
     }
 
     label{
       display:block;
-      font-weight: 800;
-      margin: 12px 0 8px;
-      color: rgba(0,0,0,.82);
+      font-weight: 900;
       font-size: 16px;
+      color: #121316;
+      margin: 12px 0 8px;
     }
-    .req{ color:#b30d0d; font-weight: 900; margin-left:4px; }
+    .req{color:#c61b1b;}
 
     input, select, textarea{
       width:100%;
-      border-radius: 14px;
-      padding: 14px 14px;
-      font-size: 15px;
-      border: 1px solid rgba(0,0,0,.14);
-      background: rgba(255,255,255,.95);
+      padding: 16px 16px;
+      border-radius: 16px;
+      border: 1px solid rgba(0,0,0,.18);
+      background: rgba(255,255,255,.92);
+      color:#111;
+      font-size: 16px;
       outline:none;
-      box-shadow: inset 0 1px 0 rgba(255,255,255,.65);
-      font-family: inherit;
+      box-shadow: 0 8px 22px rgba(0,0,0,.06);
     }
-
+    input:focus, select:focus, textarea:focus{
+      border-color: rgba(255,184,0,.85);
+      box-shadow: 0 0 0 6px rgba(255,212,0,.22);
+    }
     textarea{
       min-height: 130px;
       resize: vertical;
-      font-family: inherit; /* FIX for textarea font mismatch */
-      font-size: 15px;
-      line-height: 1.5;
-    }
-
-    input:focus, select:focus, textarea:focus{
-      border-color: rgba(247,212,0,.9);
-      box-shadow: 0 0 0 4px rgba(247,212,0,.25);
+      font-family: inherit;
+      font-size: 16px;
     }
 
     .two{
       display:grid;
       grid-template-columns: 1fr 1fr;
-      gap: 14px;
+      gap: 16px;
+    }
+    @media (max-width: 760px){
+      .two{grid-template-columns:1fr;}
     }
 
-    /* GDPR */
     .gdpr{
       margin-top: 14px;
-      padding: 12px;
-      border-radius: 14px;
+      padding: 12px 12px;
+      border-radius: 16px;
+      background: rgba(255,255,255,.55);
       border: 1px solid rgba(0,0,0,.10);
-      background: rgba(255,255,255,.70);
     }
     .gdprLabel{
       display:flex;
       gap: 10px;
       align-items:flex-start;
-      font-weight: 600; /* slimmer */
-      font-size: 13.5px;
-      color: rgba(0,0,0,.78);
-      line-height: 1.5;
+      font-weight: 850;
+      font-size: 14px;
+      color: #111;
       margin: 0;
     }
     .gdprLabel input{
       width: 18px;
       height: 18px;
       margin-top: 2px;
-      accent-color: #111;
+      box-shadow:none;
     }
     .gdprNote{
       margin-top: 6px;
@@ -257,115 +329,126 @@
       line-height: 1.4;
     }
 
-    .actions{
+    .ctaRow{
       display:flex;
       justify-content:center;
-      margin-top: 16px;
+      margin-top: 18px;
+      position:relative;
+      z-index:1;
     }
+
     .btn{
+      min-width: 320px;
+      padding: 16px 18px;
+      border-radius: 16px;
       border: 0;
-      cursor:pointer;
-      border-radius: 14px;
-      padding: 14px 18px;
-      font-size: 16px;
-      font-weight: 900;
-      color: #111;
-      background: linear-gradient(180deg, #111, #000);
+      background: linear-gradient(180deg, #1c1c1f, #0b0b0d);
       color: var(--yellow);
-      box-shadow: 0 16px 30px rgba(0,0,0,.20);
-      min-width: 260px;
+      font-weight: 1000;
+      font-size: 18px;
+      letter-spacing: .3px;
+      cursor:pointer;
+      box-shadow: 0 18px 36px rgba(0,0,0,.25);
     }
-    .btn:disabled{
-      opacity:.55;
-      cursor:not-allowed;
-    }
+    .btn:disabled{opacity:.65; cursor:not-allowed;}
 
-    .toast{
-      margin-top: 12px;
+    .msg{
+      margin-top: 14px;
       text-align:center;
-      font-weight: 700;
-      font-size: 14px;
-      color: rgba(0,0,0,.78);
-      display:none;
+      font-weight: 900;
+      font-size: 15px;
+      position:relative;
+      z-index:1;
     }
+    .ok{color:#0a7b34;}
+    .err{color:#b00020;}
 
-    /* Right column */
+    /* RIGHT PANEL (convener frame) */
     .side{
       border-radius: var(--radius);
-      background: var(--panel-2);
-      border: 1px solid rgba(255,255,255,.12);
+      background: rgba(90,74,0,.35);
       box-shadow: var(--shadow);
-      padding: 16px;
-      display:grid;
+      padding: 18px;
+      display: grid;
       gap: 14px;
     }
 
     .frame{
       border-radius: 26px;
-      background: rgba(0,0,0,.82);
+      background: rgba(0,0,0,.84);
       padding: 10px;
+      position:relative;
       box-shadow: 0 18px 40px rgba(0,0,0,.22);
     }
+
     .frameInner{
       border-radius: 22px;
       border: 4px solid rgba(255,212,0,.95);
       overflow:hidden;
-      aspect-ratio: 3/4; /* portrait */
+      aspect-ratio: 3/4;
       background: #0b0b0d;
     }
+
     .frameInner img{
       width:100%;
       height:100%;
-      object-fit: cover;         /* “fits nicely” */
-      object-position: center;   /* adjust if needed */
+      object-fit: cover;
+      background: transparent;
+      object-position: center;
       display:block;
     }
 
-    .detailsCard{
-      border-radius: 22px;
-      background: var(--card-2);
-      border: 1px solid rgba(0,0,0,.10);
-      padding: 14px 14px;
-      color: #111;
-      box-shadow: 0 14px 30px rgba(0,0,0,.10);
-    }
-    .detailsCard h3{
-      margin: 0 0 10px;
-      font-size: 18px;
+    .frameLabel{
+      position:absolute;
+      top: 10px;
+      left: 14px;
       font-weight: 900;
-      color:#111;
+      color: #fff;
+      font-size: 16px;
+      text-shadow: 0 6px 16px rgba(0,0,0,.45);
     }
 
-    .meta{
-      display:grid;
-      gap: 10px;
-      font-weight: 420; /* light base */
-      color: rgba(0,0,0,.75);
-      line-height: 1.5;
+    .posterCard{
+      border-radius: 22px;
+      background: rgba(255,255,255,.75);
+      border: 1px solid rgba(0,0,0,.12);
+      overflow:hidden;
+      box-shadow: 0 14px 30px rgba(0,0,0,.12);
+      position: relative;
     }
-    .metaRow{
-      display:grid;
-      grid-template-columns: 90px 1fr;
-      gap: 10px;
-      align-items:start;
+    .posterCard img{
+      width: 100%;
+      display:block;
+      object-fit: cover;
     }
-    .metaRow .k{
-      font-weight: 900; /* bold labels only */
-      color: rgba(0,0,0,.70);
-      text-transform: uppercase;
+    .posterLabel{
+      position:absolute;
+      top: 10px;
+      left: 10px;
+      padding: 8px 10px;
+      border-radius: 999px;
+      background: rgba(0,0,0,.65);
+      color: #fff;
+      font-weight: 900;
       font-size: 12px;
-      letter-spacing: .7px;
-    }
-    .metaRow .v{
-      font-weight: 420;
-      color: rgba(0,0,0,.80);
-    }
-    .metaRow .v strong{
-      font-weight: 900; /* host/date/time/venue bold per your rule */
-      color:#111;
+      letter-spacing: .6px;
+      text-transform: uppercase;
     }
 
-    /* Footer - white */
+    .posterWrap{
+      margin-top: 14px;
+      border-radius: 22px;
+      overflow: hidden;
+      border: 2px solid rgba(255,212,0,.35);
+      box-shadow: 0 16px 36px rgba(0,0,0,.18);
+      background: rgba(0,0,0,.08);
+    }
+    .posterWrap img{
+      width: 100%;
+      display:block;
+      object-fit: cover;
+    }
+
     footer{
       margin-top: 18px;
       text-align:center;
@@ -374,148 +457,95 @@
       border-radius: 16px;
       color: rgba(0,0,0,.70);
       font-size: 14px;
-      font-weight: 650;
-      box-shadow: var(--shadow-soft);
-      border: 1px solid rgba(0,0,0,.06);
+      font-weight: 750;
+      box-shadow: 0 12px 28px rgba(0,0,0,.10);
     }
 
-    /* Desktop fine tuning */
-    @media (max-width: 1100px){
-      h1{ font-size: 52px; }
-      .grid{ grid-template-columns: 1fr; }
-      .side{ order: 2; }
-      .panel{ order: 1; }
-      .frameInner{ aspect-ratio: 16/10; } /* more natural when stacked */
-    }
-
-    /* Mobile — the real fix: sleek, no “broken” hero */
-    @media (max-width: 520px){
-      .wrap{ padding: 14px 12px 28px; }
-      .topbar{ padding: 10px 12px; border-radius: 14px; }
-      .brand{ font-size: 16px; gap: 8px; }
-      .brand img{ width: 30px; height: 30px; }
-      .pill{ font-size: 11px; padding: 7px 10px; letter-spacing: .6px; }
-
-      .panelHead{ padding: 18px 16px 10px; }
-
-      /* Keeps title readable without exploding the layout */
-      h1{
-        font-size: 40px;
-        line-height: 1.05;
-        letter-spacing: -0.6px;
-        text-align: left;
-        margin-bottom: 14px;
-      }
-      .programCopy{
-        text-align:left;
-        font-size: 15px;
-        margin-bottom: 12px;
-      }
-      .hr{ margin: 14px 0; max-width: 100%; }
-      .sub{
-        text-align:left;
-        font-size: 14px;
-        max-width: 100%;
-      }
-
-      .formCard{
-        margin: 14px 10px 16px;
-        padding: 16px;
-        border-radius: 24px;
-      }
-      label{ font-size: 15px; }
-      input, select, textarea{ font-size: 15px; padding: 14px; }
-      textarea{ min-height: 120px; }
-      .two{ grid-template-columns: 1fr; gap: 12px; }
-
-      .btn{ width: 100%; min-width: 100%; padding: 15px 16px; font-size: 17px; }
-
-      .side{ padding: 14px; }
-      .frame{ border-radius: 22px; padding: 8px; }
-      .frameInner{ border-radius: 18px; }
-      footer{ border-radius: 14px; padding: 14px 10px; font-size: 13px; }
-    }
+    .hp{display:none;}
   </style>
 </head>
 
 <body>
-  <div class="wrap">
-    <header class="topbar">
-      <div class="brand">
-        <img src="assets/logo.png" alt="db logo" />
-        <span>debowoseni</span>
-      </div>
-      <div class="pill">Event Registration Form</div>
-    </header>
+  <div class="bg"></div>
 
-    <main class="grid">
+  <div class="wrap">
+    <div class="topbar">
+      <span class="siteLeft"><img src="assets/logo.png" alt="logo"/>debowoseni</span>
+      <span class="pill">Event Registration Form</span>
+    </div>
+
+    <div class="grid">
       <!-- LEFT -->
       <section class="panel">
         <div class="panelHead">
-          <!-- Title exactly as you like (2 lines on desktop). Mobile uses left alignment and smaller size -->
-          <h1>
-            Life Transformation<br/>
-            Enquiry™ <span class="accent">Masterclass</span>
-          </h1>
+          <div class="brandRow">
+            <div>
+              <h1>Life Transformation<br/>Enquiry™<span class="accent"> Masterclass</span></h1>
 
-          <p class="programCopy">
-            In this masterclass, you’ll step back from the noise and map where you are, what’s shaping you, and what needs to shift.
-            Expect guided reflection, practical frameworks, and clear next steps for your purpose, priorities, and direction.
-          </p>
+              <p class="programCopy">
+              In this masterclass, you’ll step back from the noise and map where you are, what’s shaping you, and what needs to shift.
+              Expect guided reflection, practical frameworks, and clear next steps for your purpose, priorities, and direction.
+            </p>
 
-          <div class="hr"></div>
+              <div class="hr"></div>
 
-          <p class="sub">
-            Complete this short form to reserve your seat for the upcoming masterclass.
-          </p>
+              <p class="sub">Complete this short form to reserve your seat for the upcoming masterclass.</p>
+            </div>
+          </div>
+
+          
         </div>
 
         <div class="formCard">
-          <form id="regForm" autocomplete="on">
-            <label for="fullName">Full Name <span class="req">*</span></label>
-            <input id="fullName" name="fullName" type="text" placeholder="Enter your full name" required />
+          <div class="formDots"></div>
+          <form id="regForm" style="position:relative; z-index:1;">
+            <div class="hp">
+              <label>Leave this empty</label>
+              <input type="text" id="website" autocomplete="off"/>
+            </div>
 
-            <label for="email">Email <span class="req">*</span></label>
-            <input id="email" name="email" type="email" placeholder="Enter your email address" required />
+            <label>Full Name <span class="req">*</span></label>
+            <input id="fullname" type="text" placeholder="Enter your full name" required />
+
+            <label>Email <span class="req">*</span></label>
+            <input id="email" type="email" placeholder="Enter your email address" required />
 
             <div class="two">
               <div>
-                <label for="phone">Phone Number</label>
-                <input id="phone" name="phone" type="tel" placeholder="e.g., +44 7xxx xxx xxx" />
+                <label>Phone Number</label>
+                <input id="phone" type="tel" placeholder="e.g., +44 7xxx xxx xxx" />
               </div>
-
               <div>
-                <label for="location">Location</label>
-                <select id="location" name="location">
-                  <option value="" selected>Select one</option>
+                <label>Location</label>
+                <select id="location">
+                  <option value="">Select one</option>
                   <option>Leicester</option>
-                  <option>Outside Leicester</option>
+                  <option>London</option>
+                  <option>Birmingham</option>
+                  <option>Manchester</option>
+                  <option>Outside UK</option>
                   <option>Online</option>
+                  <option>Other</option>
                 </select>
               </div>
             </div>
 
-            <label for="expectations">What are your expectations?</label>
-            <textarea id="expectations" name="expectations" placeholder="Write your message here..."></textarea>
+            <label>What are your expectations?</label>
+            <textarea id="expectations" placeholder="Write your message here..."></textarea>
 
             <div class="gdpr">
               <label class="gdprLabel">
-                <input id="gdpr" name="gdpr" type="checkbox" required />
-                <span>
-                  I agree to be contacted about the Life Transformation Enquiry™ Masterclass and understand my information
-                  will be used to process my registration.
-                </span>
+                <input id="gdpr" type="checkbox" required />
+                <span>I agree to be contacted about the <b>Life Transformation Enquiry™ Masterclass</b> and consent to my details being processed for registration and event updates.</span>
               </label>
-              <div class="gdprNote">
-                You can unsubscribe anytime. We do not sell your data.
-              </div>
+              <div class="gdprNote">You can unsubscribe at any time. We do not sell your data.</div>
             </div>
 
-            <div class="actions">
-              <button id="submitBtn" class="btn" type="submit">Submit Registration</button>
+            <div class="ctaRow">
+              <button class="btn" id="btn" type="submit">Submit Registration</button>
             </div>
 
-            <div id="toast" class="toast"></div>
+            <div id="msg" class="msg"></div>
           </form>
         </div>
       </section>
@@ -523,35 +553,40 @@
       <!-- RIGHT -->
       <aside class="side">
         <div class="frame">
+          
           <div class="frameInner">
-            <img src="assets/convener-new.jpg" alt="Convener portrait" />
+            <img src="assets/convener-new.jpg" alt="Convener" />
           </div>
         </div>
 
+        <!-- Event Details moved under the image -->
         <div class="detailsCard">
           <h3>Event Details</h3>
 
           <div class="meta">
             <div class="metaRow">
               <div class="k">Host</div>
-              <div class="v"><strong>Debo’ Owoseni</strong></div>
+              <div class="v">Debo’ Owoseni</div>
             </div>
             <div class="metaRow">
               <div class="k">Date</div>
-              <div class="v"><strong>Saturday 7 March 2026</strong></div>
+              <div class="v">Saturday 7 March 2026</div>
             </div>
             <div class="metaRow">
               <div class="k">Time</div>
-              <div class="v"><strong>12:00 PM</strong></div>
+              <div class="v">12:00 PM</div>
             </div>
             <div class="metaRow">
               <div class="k">Venue</div>
-              <div class="v"><strong>Phoenix Cinema, Leicester LE1 1TG</strong></div>
+              <div class="v">Phoenix Cinema, Leicester LE1 1TG</div>
             </div>
           </div>
         </div>
+
+        <!-- Event Poster -->
+        
       </aside>
-    </main>
+    </div>
 
     <footer>
       Life Transformation Enquiry™ Masterclass<br/>
@@ -560,52 +595,69 @@
   </div>
 
   <script>
-    // ✅ Your Google Apps Script endpoint
-    const ENDPOINT = "https://script.google.com/macros/s/AKfycbxNh9TIQ9WBgtq6nv-Rc8BrZYXUzMy8dAL4ZxaPfwuMTheqgl9RxqIWrGk3WusBzemm/exec";
+    const ENDPOINT_URL =
+      "https://script.google.com/macros/s/AKfycbxNh9TIQ9WBgtq6nv-Rc8BrZYXUzMy8dAL4ZxaPfwuMTheqgl9RxqIWrGk3WusBzemm/exec";
 
     const form = document.getElementById("regForm");
-    const btn = document.getElementById("submitBtn");
-    const toast = document.getElementById("toast");
-
-    function showToast(msg, ok=true){
-      toast.style.display = "block";
-      toast.textContent = msg;
-      toast.style.color = ok ? "rgba(0,0,0,.78)" : "#b30d0d";
-      setTimeout(()=> toast.style.display = "none", 5000);
-    }
+    const btn  = document.getElementById("btn");
+    const msg  = document.getElementById("msg");
 
     form.addEventListener("submit", async (e) => {
       e.preventDefault();
+      msg.textContent = "";
+      msg.className = "msg";
+
+      // Honeypot anti-bot
+      if (document.getElementById("website").value) {
+        msg.textContent = "Submission blocked.";
+        msg.classList.add("err");
+        return;
+      }
+
+      // GDPR required (native required should handle it, but keep a friendly message)
+      const gdpr = document.getElementById("gdpr");
+      if (!gdpr.checked) {
+        msg.textContent = "❌ Please tick the consent checkbox to continue.";
+        msg.classList.add("err");
+        return;
+      }
+
       btn.disabled = true;
       btn.textContent = "Submitting...";
 
       const payload = {
-        fullName: form.fullName.value.trim(),
-        email: form.email.value.trim(),
-        phone: form.phone.value.trim(),
-        location: form.location.value,
-        expectations: form.expectations.value.trim(),
-        gdpr: form.gdpr.checked ? "Yes" : "No"
+        fullname: document.getElementById("fullname").value.trim(),
+        email: document.getElementById("email").value.trim(),
+        phone: document.getElementById("phone").value.trim(),
+        location: document.getElementById("location").value.trim(),
+        expectations: document.getElementById("expectations").value.trim(),
+        consent: true,
+        source: location.hostname
       };
 
-      try{
-        const res = await fetch(ENDPOINT, {
+      try {
+        const res = await fetch(ENDPOINT_URL, {
           method: "POST",
-          headers: {"Content-Type":"application/json"},
+          headers: { "Content-Type": "text/plain;charset=utf-8" },
           body: JSON.stringify(payload)
         });
 
-        // Apps Script sometimes returns 302/opaque; treat as success if fetch doesn't throw
-        if (!res.ok && res.type !== "opaque") {
-          throw new Error("Request failed");
+        const data = await res.json().catch(() => ({}));
+
+        if (data.ok) {
+          msg.textContent = data.alreadyRegistered
+            ? "✅ You’re already registered. Check your email."
+            : "✅ Registration successful. Check your email.";
+          msg.classList.add("ok");
+          if (!data.alreadyRegistered) form.reset();
+        } else {
+          msg.textContent = "❌ Submission failed: " + (data.error || "Unknown error");
+          msg.classList.add("err");
         }
-
-        form.reset();
-        showToast("Registration received! Please check your email for confirmation.", true);
-
-      }catch(err){
-        showToast("Something went wrong. Please try again.", false);
-      }finally{
+      } catch (err) {
+        msg.textContent = "❌ Network error: " + err.message;
+        msg.classList.add("err");
+      } finally {
         btn.disabled = false;
         btn.textContent = "Submit Registration";
       }
