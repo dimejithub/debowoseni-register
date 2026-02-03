@@ -461,72 +461,64 @@
   <script>
     // ✅ Replace with your new Web App /exec URL (from debowoseni.events@gmail.com deployment)
     const ENDPOINT = "https://script.google.com/macros/s/AKfycbwPOEUdKmnwFv2zGbeCMxhyb1VAM9kWQ6dN_5vTjvGsGa_ND03c6eckqHBz4VWMgkRs/exec";
+ 
+  const form = document.getElementById("regForm");
+  const statusEl = document.getElementById("status");
+  const btn = document.getElementById("submitBtn");
 
-    const form = document.getElementById("regForm");
-    const statusEl = document.getElementById("status");
-    const btn = document.getElementById("submitBtn");
+  function setStatus(type, msg){
+    statusEl.className = "status " + (type === "ok" ? "ok" : "err");
+    statusEl.textContent = msg;
+  }
 
-    function setStatus(type, msg){
-      statusEl.className = "status " + (type === "ok" ? "ok" : "err");
-      statusEl.textContent = msg;
+  async function readAsJsonOrText(res){
+    const text = await res.text();
+    try { return { json: JSON.parse(text), text }; }
+    catch { return { json: null, text }; }
+  }
+
+  form.addEventListener("submit", async (e) => {
+    e.preventDefault();
+
+    const fullName = document.getElementById("fullName").value.trim();
+    const email = document.getElementById("email").value.trim();
+    const phone = document.getElementById("phone").value.trim();
+    const location = document.getElementById("location").value.trim();
+    const expectations = document.getElementById("expectations").value.trim();
+    const gdpr = document.getElementById("gdpr").checked;
+
+    if (!fullName || !email) return setStatus("err", "Please enter your full name and email.");
+    if (!gdpr) return setStatus("err", "Please tick the consent checkbox to continue.");
+
+    btn.disabled = true;
+    btn.textContent = "Submitting...";
+    setStatus("", "");
+
+    try{
+      const res = await fetch(ENDPOINT, {
+        method: "POST",
+        headers: { "Content-Type":"application/json" },
+        body: JSON.stringify({ fullName, email, phone, location, expectations, gdpr: "Yes" })
+      });
+
+      const { json, text } = await readAsJsonOrText(res);
+
+      if (json && json.ok){
+        setStatus("ok", "✅ Registration submitted successfully. Please check your email for confirmation.");
+        form.reset();
+      } else {
+        // Show real reason (super helpful)
+        const msg = (json && json.message) ? json.message :
+          ("Server returned non-JSON response. Check deployment access = Anyone. Response starts: " + text.slice(0,120));
+        setStatus("err", msg);
+        console.log("Server raw response:", text);
+      }
+    }catch(err){
+      setStatus("err", "Network error. Please try again.");
+      console.error(err);
+    }finally{
+      btn.disabled = false;
+      btn.textContent = "Submit Registration";
     }
-
-    form.addEventListener("submit", async (ev) => {
-      ev.preventDefault();
-      statusEl.textContent = "";
-
-      const fullName = document.getElementById("fullName").value.trim();
-      const email = document.getElementById("email").value.trim();
-      const phone = document.getElementById("phone").value.trim();
-      const location = document.getElementById("location").value.trim();
-      const expectations = document.getElementById("expectations").value.trim();
-      const gdprChecked = document.getElementById("gdpr").checked;
-
-      if (!fullName || !email){
-        setStatus("err", "Please enter your full name and email.");
-        return;
-      }
-      if (!gdprChecked){
-        setStatus("err", "Please tick the consent checkbox to continue.");
-        return;
-      }
-
-      btn.disabled = true;
-      btn.textContent = "Submitting...";
-
-      try {
-        const payload = {
-          fullName,
-          email,
-          phone,
-          location,
-          expectations,
-          gdpr: "Yes"
-        };
-
-        const res = await fetch(ENDPOINT, {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify(payload)
-        });
-
-        const out = await res.json().catch(() => ({}));
-
-        if (out && out.ok){
-          setStatus("ok", "✅ Registration submitted successfully. Please check your email for confirmation.");
-          form.reset();
-        } else {
-          setStatus("err", out.message || "Something went wrong. Please try again.");
-        }
-
-      } catch (err){
-        setStatus("err", "Network error. Please try again.");
-      } finally {
-        btn.disabled = false;
-        btn.textContent = "Submit Registration";
-      }
-    });
+  });
   </script>
-</body>
-</html>
-
