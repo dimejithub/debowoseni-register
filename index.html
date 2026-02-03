@@ -381,4 +381,177 @@
       h1{font-size: 42px; text-align:left;}
       .programCopy{text-align:left;}
       .sub{text-align:left;}
-      .hr{max-width:100%; margin:
+      .hr{max-width:100%; margin: 12px 0;}
+      .formCard{margin: 14px 12px 16px; padding: 16px;}
+      .btn{width:100%; min-width:100%;}
+      .side{padding: 14px;}
+      .frame{padding: 8px;}
+      .metaRow{grid-template-columns: 80px 1fr;}
+    }
+  </style>
+</head>
+
+<body>
+  <div class="bg"></div>
+
+  <div class="wrap">
+    <header class="topbar">
+      <div class="siteLeft">
+        <img src="assets/logo.png" alt="db logo">
+        <span>debowoseni</span>
+      </div>
+      <div class="pill">Event Registration Form</div>
+    </header>
+
+    <main class="grid">
+      <!-- LEFT -->
+      <section class="panel">
+        <div class="panelHead">
+          <h1>
+            Life Transformation<br/>
+            Enquiry™ <span class="accent">Masterclass</span>
+          </h1>
+
+          <p class="programCopy">
+            In this masterclass, you’ll step back from the noise and map where you are,
+            what’s shaping you, and what needs to shift. Expect guided reflection, practical
+            frameworks, and clear next steps for your purpose, priorities, and direction.
+          </p>
+
+          <div class="hr"></div>
+
+          <p class="sub">
+            Complete this short form to reserve your seat for the upcoming masterclass.
+          </p>
+        </div>
+
+        <div class="formCard">
+          <form id="regForm" autocomplete="on">
+            <label for="fullName">Full Name <span class="req">*</span></label>
+            <input id="fullName" name="fullName" placeholder="Enter your full name" required>
+
+            <label for="email">Email <span class="req">*</span></label>
+            <input id="email" name="email" type="email" placeholder="Enter your email address" required>
+
+            <div class="two">
+              <div>
+                <label for="phone">Phone Number</label>
+                <input id="phone" name="phone" placeholder="e.g., +44 7xxx xxx xxx">
+              </div>
+
+              <div>
+                <label for="location">Location</label>
+                <select id="location" name="location">
+                  <option value="" selected>Select one</option>
+                  <option>Leicester</option>
+                  <option>Outside Leicester</option>
+                  <option>Online</option>
+                </select>
+              </div>
+            </div>
+
+            <label for="expectations">What are your expectations?</label>
+            <textarea id="expectations" name="expectations" placeholder="Write your message here..."></textarea>
+
+            <div class="gdpr">
+              <label class="gdprLabel">
+                <input id="gdpr" name="gdpr" type="checkbox" required>
+                <span>
+                  I agree to be contacted about the Life Transformation Enquiry™ Masterclass and understand my information
+                  will be used to process my registration.
+                </span>
+              </label>
+              <div class="gdprNote">You can unsubscribe anytime. We do not sell your data.</div>
+            </div>
+
+            <div class="ctaRow">
+              <button id="submitBtn" class="btn" type="submit">Submit Registration</button>
+            </div>
+
+            <!-- ✅ Success / error message appears here -->
+            <div id="toast" class="toast"></div>
+          </form>
+        </div>
+      </section>
+
+      <!-- RIGHT -->
+      <aside class="side">
+        <div class="frame">
+          <div class="frameInner">
+            <img src="assets/convener-new.jpg" alt="Host portrait">
+          </div>
+        </div>
+
+        <div class="detailsCard">
+          <h3>Event Details</h3>
+          <div class="meta">
+            <div class="metaRow"><div class="k">Host</div><div class="v">Debo’ Owoseni</div></div>
+            <div class="metaRow"><div class="k">Date</div><div class="v">Saturday 7 March 2026</div></div>
+            <div class="metaRow"><div class="k">Time</div><div class="v">12:00 PM</div></div>
+            <div class="metaRow"><div class="k">Venue</div><div class="v">Phoenix Cinema, Leicester LE1 1TG</div></div>
+          </div>
+        </div>
+      </aside>
+    </main>
+
+    <footer>
+      Life Transformation Enquiry™ Masterclass<br/>
+      © 2026 Debo’ Owoseni | All rights reserved
+    </footer>
+  </div>
+
+  <script>
+    // ✅ Your Apps Script Web App endpoint
+    const ENDPOINT = "https://script.google.com/macros/s/AKfycbxNh9TIQ9WBgtq6nv-Rc8BrZYXUzMy8dAL4ZxaPfwuMTheqgl9RxqIWrGk3WusBzemm/exec";
+
+    const form = document.getElementById("regForm");
+    const btn = document.getElementById("submitBtn");
+    const toast = document.getElementById("toast");
+
+    function showToast(message, ok=true){
+      toast.className = "toast " + (ok ? "ok" : "err");
+      toast.textContent = message;
+      toast.style.display = "block";
+      setTimeout(() => { toast.style.display = "none"; }, 6500);
+    }
+
+    form.addEventListener("submit", async (e) => {
+      e.preventDefault();
+
+      btn.disabled = true;
+      btn.textContent = "Submitting...";
+
+      const payload = {
+        fullName: form.fullName.value.trim(),
+        email: form.email.value.trim(),
+        phone: form.phone.value.trim(),
+        location: form.location.value,
+        expectations: form.expectations.value.trim(),
+        gdpr: form.gdpr.checked ? "Yes" : "No"
+      };
+
+      try{
+        const res = await fetch(ENDPOINT, {
+          method: "POST",
+          headers: {"Content-Type":"application/json"},
+          body: JSON.stringify(payload),
+          mode: "cors"
+        });
+
+        // Some Apps Script deployments may respond with redirect/opaque in certain contexts.
+        // If fetch doesn't throw, treat as success; otherwise show error.
+        if (!res.ok && res.type !== "opaque") throw new Error("Request failed");
+
+        form.reset();
+        showToast("Registration received! Please check your email for confirmation.", true);
+
+      }catch(err){
+        showToast("Something went wrong. Please try again.", false);
+      }finally{
+        btn.disabled = false;
+        btn.textContent = "Submit Registration";
+      }
+    });
+  </script>
+</body>
+</html>
