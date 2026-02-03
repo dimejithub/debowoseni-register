@@ -5,7 +5,6 @@
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>Event Registration | debowoseni</title>
 
-  <!-- Favicons (in /assets) -->
   <link rel="icon" href="/assets/favicon.ico" sizes="any">
   <link rel="icon" type="image/png" href="/assets/favicon.png" media="(prefers-color-scheme: light)">
   <link rel="icon" type="image/png" href="/assets/favicon-dark.png" media="(prefers-color-scheme: dark)">
@@ -13,246 +12,171 @@
 
   <style>
     :root{
-      --bg:#f7b500;
-      --bg2:#ffcf2e;
-      --card:#5b4b00;
-      --paper:#f5f1e6;
-      --text:#fff;
-      --muted:#efe8d3;
-      --accent:#ffcc00;
-      --shadow: 0 18px 45px rgba(0,0,0,.22);
-      --radius: 22px;
+      --bg:#f7b500; --bg2:#ffcf2e; --card:#5b4b00; --paper:#f5f1e6;
+      --text:#fff; --muted:#efe8d3; --accent:#ffcc00; --shadow:0 18px 45px rgba(0,0,0,.22);
+      --radius:22px;
     }
-
     *{box-sizing:border-box}
     body{
       margin:0;
-      font-family: system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;
-      background: url("/assets/bg.png") center/cover no-repeat, linear-gradient(120deg,var(--bg),var(--bg2));
+      font-family:system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;
+      background:url("/assets/bg.png") center/cover no-repeat, linear-gradient(120deg,var(--bg),var(--bg2));
       min-height:100vh;
     }
-
     .wrap{ width:min(1200px,92vw); margin:18px auto 36px; }
 
     .topbar{
       display:flex; align-items:center; justify-content:space-between; gap:12px;
       padding:14px 18px; border-radius:18px;
-      background: rgba(80,65,0,.78);
-      color:#fff;
-      box-shadow: var(--shadow);
-      backdrop-filter: blur(8px);
+      background:rgba(80,65,0,.78); color:#fff;
+      box-shadow:var(--shadow); backdrop-filter:blur(8px);
     }
-
     .brand{ display:flex; align-items:center; gap:12px; }
     .brand img{ height:30px; width:auto; display:block; }
     .brand span{ font-weight:600; opacity:.9; font-size:18px; }
 
     .badge{
       padding:10px 14px; border-radius:999px;
-      background: rgba(255,255,255,.12);
+      background:rgba(255,255,255,.12);
       border:1px solid rgba(255,255,255,.18);
       font-weight:800; font-size:13px; letter-spacing:.4px;
-      text-transform:uppercase;
-      white-space:nowrap;
+      text-transform:uppercase; white-space:nowrap;
     }
 
     .grid{
       margin-top:16px;
       display:grid;
-      grid-template-columns: 1.25fr .75fr;
-      gap:18px;
-      align-items:start;
+      grid-template-columns:1.25fr .75fr;
+      gap:18px; align-items:start;
     }
 
     .leftCard{
-      border-radius: var(--radius);
-      background: rgba(80,65,0,.90);
-      color: var(--text);
-      padding: 22px;
-      box-shadow: var(--shadow);
+      border-radius:var(--radius);
+      background:rgba(80,65,0,.90);
+      color:var(--text);
+      padding:22px;
+      box-shadow:var(--shadow);
     }
 
-    h1{
-      margin:0;
-      font-size: clamp(30px, 3.8vw, 52px);
-      line-height: 1.05;
-      letter-spacing: -0.5px;
-    }
-    .accent{ color: var(--accent); }
+    h1{ margin:0; font-size:clamp(30px,3.8vw,52px); line-height:1.05; letter-spacing:-.5px; }
+    .accent{ color:var(--accent); }
 
-    .desc{
-      margin-top: 12px;
-      color: var(--muted);
-      line-height: 1.6;
-      font-size: 16px;
-      max-width: 62ch;
-    }
-
-    .divider{
-      margin: 14px 0;
-      height:1px;
-      background: rgba(255,255,255,.18);
-    }
-
-    .instruction{
-      color:#fff;
-      opacity:.92;
-      font-weight:600;
-      font-size: 15px;
-      white-space: nowrap;
-      overflow:hidden;
-      text-overflow: ellipsis;
-    }
+    .desc{ margin-top:12px; color:var(--muted); line-height:1.6; font-size:16px; max-width:62ch; }
+    .divider{ margin:14px 0; height:1px; background:rgba(255,255,255,.18); }
+    .instruction{ color:#fff; opacity:.92; font-weight:600; font-size:15px; }
 
     .paper{
       margin-top:16px;
-      background: var(--paper);
-      border-radius: 18px;
-      padding: 16px;
+      background:var(--paper);
+      border-radius:18px;
+      padding:16px;
       color:#111;
-      box-shadow: 0 10px 25px rgba(0,0,0,.12) inset;
+      box-shadow:0 10px 25px rgba(0,0,0,.12) inset;
     }
 
     label{ display:block; font-weight:800; margin:10px 0 7px; font-size:16px; }
     .req{ color:#b00020; }
 
-    /* force premium consistency everywhere */
-    input, select, textarea, button{
-      font-family: inherit !important;
-      font-size: 16px;
-    }
-
+    input, select, textarea, button{ font-family:inherit !important; font-size:16px; }
     input,select,textarea{
       width:100%;
-      padding: 14px 14px;
-      border-radius: 14px;
-      border: 1px solid rgba(0,0,0,.14);
-      background: rgba(255,255,255,.76);
+      padding:14px;
+      border-radius:14px;
+      border:1px solid rgba(0,0,0,.14);
+      background:rgba(255,255,255,.76);
       outline:none;
     }
-    textarea{ min-height: 120px; resize: vertical; }
-    ::placeholder{ color: rgba(0,0,0,.55); }
+    textarea{ min-height:120px; resize:vertical; }
+    ::placeholder{ color:rgba(0,0,0,.55); }
 
     .row2{ display:grid; grid-template-columns:1fr 1fr; gap:12px; }
 
     .gdpr{
       display:flex; gap:10px; align-items:flex-start;
       margin:12px 0 4px;
-      font-size:14px;
-      line-height:1.45;
-      color: rgba(0,0,0,.80);
-      font-weight: 500;
+      font-size:14px; line-height:1.45;
+      color:rgba(0,0,0,.80);
+      font-weight:500;
     }
-    .gdpr input{
-      width:18px; height:18px; margin-top:3px;
-      accent-color: #111;
-    }
+    .gdpr input{ width:18px; height:18px; margin-top:3px; accent-color:#111; }
 
     button{
       width:100%;
-      margin-top: 12px;
-      padding: 14px 16px;
+      margin-top:12px;
+      padding:14px 16px;
       border:0;
-      border-radius: 14px;
+      border-radius:14px;
       background:#111;
-      color: var(--accent);
-      font-size: 18px;
-      font-weight: 900;
+      color:var(--accent);
+      font-size:18px;
+      font-weight:900;
       cursor:pointer;
-      box-shadow: 0 12px 28px rgba(0,0,0,.22);
+      box-shadow:0 12px 28px rgba(0,0,0,.22);
     }
     button[disabled]{ opacity:.65; cursor:not-allowed; }
 
-    /* ✅ strong visible alert */
     .alert{
-      margin-top: 12px;
-      padding: 12px 14px;
-      border-radius: 14px;
-      font-weight: 800;
-      font-size: 14px;
-      line-height: 1.35;
+      margin-top:12px;
+      padding:12px 14px;
+      border-radius:14px;
+      font-weight:800;
+      font-size:14px;
+      line-height:1.35;
       display:none;
     }
     .alert.show{ display:block; }
-    .alert.ok{
-      background: rgba(11,107,27,.12);
-      border: 1px solid rgba(11,107,27,.35);
-      color: #0b6b1b;
-    }
-    .alert.err{
-      background: rgba(176,0,32,.10);
-      border: 1px solid rgba(176,0,32,.28);
-      color: #b00020;
-    }
+    .alert.ok{ background:rgba(11,107,27,.12); border:1px solid rgba(11,107,27,.35); color:#0b6b1b; }
+    .alert.err{ background:rgba(176,0,32,.10); border:1px solid rgba(176,0,32,.28); color:#b00020; }
 
-    .rightCol{
-      display:flex;
-      flex-direction:column;
-      gap:16px;
-    }
+    .rightCol{ display:flex; flex-direction:column; gap:16px; }
 
     .photoCard{
-      border-radius: var(--radius);
-      background: rgba(80,65,0,.90);
-      padding: 14px;
-      box-shadow: var(--shadow);
+      border-radius:var(--radius);
+      background:rgba(80,65,0,.90);
+      padding:14px;
+      box-shadow:var(--shadow);
     }
     .photoFrame{
-      border-radius: 20px;
+      border-radius:20px;
       overflow:hidden;
-      border: 4px solid rgba(255,204,0,.9);
+      border:4px solid rgba(255,204,0,.9);
       background:#111;
     }
-
-    /* ✅ portrait + no crop */
     .photoFrame.portrait{
-      aspect-ratio: 3 / 4;
-      display:flex;
-      align-items:center;
-      justify-content:center;
+      aspect-ratio:3/4;
+      display:flex; align-items:center; justify-content:center;
     }
     .photoFrame.portrait img{
       width:100%;
       height:100%;
-      object-fit: contain;
+      object-fit:contain;
       display:block;
     }
 
     .details{
-      background: rgba(255,255,255,.65);
-      border-radius: 18px;
-      padding: 14px 14px;
-      box-shadow: 0 12px 25px rgba(0,0,0,.12);
+      background:rgba(255,255,255,.65);
+      border-radius:18px;
+      padding:14px;
+      box-shadow:0 12px 25px rgba(0,0,0,.12);
     }
-    .details h3{
-      margin:0 0 10px;
-      font-size: 18px;
-      letter-spacing:-.2px;
-    }
-    .kv{
-      display:grid;
-      grid-template-columns: 90px 1fr;
-      gap:10px 14px;
-      font-size: 16px; /* matches inputs */
-      align-items:start;
-    }
-    .k{ font-weight:800; text-transform: none; }
+    .details h3{ margin:0 0 10px; font-size:18px; letter-spacing:-.2px; }
+    .kv{ display:grid; grid-template-columns:90px 1fr; gap:10px 14px; font-size:16px; }
+    .k{ font-weight:800; }
     .v{ font-weight:500; }
 
     footer{
-      margin-top: 18px;
+      margin-top:18px;
       background:#fff;
-      border-radius: 16px;
-      padding: 12px;
+      border-radius:16px;
+      padding:12px;
       text-align:center;
       font-weight:600;
-      box-shadow: 0 10px 22px rgba(0,0,0,.12);
+      box-shadow:0 10px 22px rgba(0,0,0,.12);
     }
 
-    @media (max-width: 900px){
-      .grid{ grid-template-columns: 1fr; }
-      .instruction{ white-space: normal; }
-      .row2{ grid-template-columns: 1fr; }
+    @media (max-width:900px){
+      .grid{ grid-template-columns:1fr; }
+      .row2{ grid-template-columns:1fr; }
       .brand span{ font-size:16px; }
     }
   </style>
@@ -270,9 +194,7 @@
 
     <div class="grid">
       <div class="leftCard">
-        <h1>
-          Life Transformation Enquiry™ <span class="accent">Masterclass</span>
-        </h1>
+        <h1>Life Transformation Enquiry™ <span class="accent">Masterclass</span></h1>
 
         <p class="desc">
           In this masterclass, you’ll step back from the noise and map where you are, what’s shaping you,
@@ -281,10 +203,7 @@
         </p>
 
         <div class="divider"></div>
-
-        <div class="instruction">
-          Complete this short form to reserve your seat for the upcoming masterclass.
-        </div>
+        <div class="instruction">Complete this short form to reserve your seat for the upcoming masterclass.</div>
 
         <div class="paper">
           <form id="regForm" novalidate>
@@ -332,7 +251,7 @@
       <div class="rightCol">
         <div class="photoCard">
           <div class="photoFrame portrait">
-            <img src="/assets/convener-new.jpg" alt="Host image">
+            <img src="/assets/convener-new.jpg" alt="Convener portrait">
           </div>
         </div>
 
@@ -355,8 +274,7 @@
   </div>
 
   <script>
-    // ✅ PUT YOUR NEW /exec URL HERE
-    const ENDPOINT = "https://script.google.com/macros/s/AKfycbwPOEUdKmnwFv2zGbeCMxhyb1VAM9kWQ6dN_5vTjvGsGa_ND03c6eckqHBz4VWMgkRs/exec";
+    const WEB_APP_URL = "PASTE_YOUR_WEB_APP_EXEC_URL_HERE";
 
     const form = document.getElementById("regForm");
     const statusEl = document.getElementById("status");
@@ -365,7 +283,7 @@
     function setStatus(type, msg){
       statusEl.className = "alert" + (type ? " " + type : "");
       statusEl.textContent = msg || "";
-      if(msg){
+      if (msg){
         statusEl.classList.add("show");
         statusEl.scrollIntoView({ behavior: "smooth", block: "nearest" });
       } else {
@@ -383,18 +301,20 @@
       e.preventDefault();
       setStatus("", "");
 
-      const fullName = document.getElementById("fullName").value.trim();
-      const email = document.getElementById("email").value.trim();
-      const phone = document.getElementById("phone").value.trim();
-      const location = document.getElementById("location").value.trim();
-      const expectations = document.getElementById("expectations").value.trim();
-      const gdpr = document.getElementById("gdpr").checked;
+      const payload = {
+        fullName: document.getElementById("fullName").value.trim(),
+        email: document.getElementById("email").value.trim(),
+        phone: document.getElementById("phone").value.trim(),
+        location: document.getElementById("location").value.trim(),
+        expectations: document.getElementById("expectations").value.trim(),
+        gdpr: document.getElementById("gdpr").checked
+      };
 
-      if (!fullName || !email){
+      if (!payload.fullName || !payload.email){
         setStatus("err", "Please enter your full name and email.");
         return;
       }
-      if (!gdpr){
+      if (!payload.gdpr){
         setStatus("err", "Please tick the consent checkbox to continue.");
         return;
       }
@@ -402,18 +322,9 @@
       btn.disabled = true;
       btn.textContent = "Submitting...";
 
-      try{
-        const payload = {
-          fullName,
-          email,
-          phone,
-          location,
-          expectations,
-          gdpr: "Yes"
-        };
-
-        // ✅ critical: NO JSON headers (avoids preflight)
-        const res = await fetch(ENDPOINT, {
+      try {
+        // ✅ No Content-Type headers (avoids preflight issues with Apps Script)
+        const res = await fetch(WEB_APP_URL, {
           method: "POST",
           body: JSON.stringify(payload)
         });
@@ -421,19 +332,17 @@
         const { json, text } = await readJsonSafely(res);
 
         if (json && json.ok){
-          setStatus("ok", "✅ Registration submitted successfully. Please check your email for confirmation.");
+          setStatus("ok", json.message);
           form.reset();
         } else {
-          const msg = (json && json.message)
-            ? json.message
-            : ("Server returned an unexpected response: " + text.slice(0,160));
+          const msg = (json && json.message) ? json.message : ("Unexpected server response: " + text.slice(0,160));
           setStatus("err", msg);
           console.log("Server raw response:", text);
         }
-      } catch (err){
+      } catch (err) {
         setStatus("err", "Network error. Please try again.");
         console.error(err);
-      } finally{
+      } finally {
         btn.disabled = false;
         btn.textContent = "Submit Registration";
       }
